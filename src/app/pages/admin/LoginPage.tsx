@@ -59,10 +59,10 @@ export function LoginPage() {
         <Link to="/" className="relative flex items-center gap-2 text-white/80 hover:text-white text-sm"><ArrowLeft className="size-4" /> Kembali ke Website</Link>
         <div className="relative">
           <span className="grid place-items-center size-16 rounded-2xl bg-white/10 mb-6"><ShieldCheck className="size-8 text-[#D4AF37]" /></span>
-          <h1 className="text-4xl leading-tight" style={{ fontWeight: 800 }}>Panel Admin<br />Karang Taruna RT 02</h1>
+          <h1 className="text-4xl leading-tight" style={{ fontWeight: 800 }}>Panel Admin<br />Kataruma RW 10</h1>
           <p className="mt-4 text-white/70 max-w-md">Kelola album, foto, dan video dokumentasi HUT RI & Panggung Kemerdekaan dengan mudah dan aman.</p>
         </div>
-        <p className="relative text-sm text-white/50">© 2026 Remaja Karang Taruna RT 02</p>
+        <p className="relative text-sm text-white/50">© 2026 Kataruma RW 10</p>
       </div>
 
       {/* right form */}

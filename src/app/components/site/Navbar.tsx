@@ -46,11 +46,11 @@ export function Navbar({ onSearch }: { onSearch: () => void }) {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
           <span className="grid place-items-center size-11 rounded-xl overflow-hidden bg-white shadow-lg">
-            <img src="/logo.png" alt="Logo Karang Taruna RT 02" className="size-full object-contain p-0.5" />
+            <img src="/logo.png" alt="Logo Kataruma RW 10" className="size-full object-contain p-0.5" />
           </span>
           <span className="leading-tight">
             <span className={`block text-sm ${scrolled ? "text-[#0F4C81]" : "text-white"}`} style={{ fontWeight: 700, fontFamily: "var(--font-heading)" }}>
-              Karang Taruna RT 02
+              Kataruma RW 10
             </span>
             <span className={`block text-xs ${scrolled ? "text-muted-foreground" : "text-white/70"}`}>Dokumentasi HUT RI</span>
           </span>

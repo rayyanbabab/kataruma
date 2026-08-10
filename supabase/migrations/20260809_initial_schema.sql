@@ -1,5 +1,5 @@
-﻿-- =============================================================
--- MIGRASI DATABASE: Karang Taruna RT 02
+-- =============================================================
+-- MIGRASI DATABASE: Kataruma RW 10
 -- Supabase Project: xovsyivddnxwwztcvsxb
 -- =============================================================
 
@@ -162,5 +162,5 @@ INSERT INTO site_config (key, value) VALUES
   ('visitors', '0'),
   ('admin_secret', '"201204"'),
   ('autoprefs', '{}'),
-  ('site_info', '{"name":"Remaja Karang Taruna RT 02","tagline":"Bersama Berkarya, Bersatu Membangun Lingkungan","email":"karangtaruna.rt02@gmail.com","whatsapp":"+62 812-3456-7890","instagram":"@karangtaruna.rt02","address":"Jl. Kalibata Tengah XVI, RT.02/RW.003, Kelurahan Kalibata, Kecamatan Pancoran, Jakarta Selatan, DKI Jakarta 12740"}')
+  ('site_info', '{"name":"Kataruma RW 10","tagline":"Bersama Berkarya, Bersatu Membangun Lingkungan","email":"kataruma.rw10@gmail.com","whatsapp":"+62 812-3456-7890","instagram":"@kataruma.rw10","address":"Jl. Kalibata Tengah XVI, RW.10, Kelurahan Kalibata, Kecamatan Pancoran, Jakarta Selatan, DKI Jakarta 12740"}')
 ON CONFLICT (key) DO NOTHING;

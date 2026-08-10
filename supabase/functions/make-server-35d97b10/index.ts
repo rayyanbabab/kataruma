@@ -307,12 +307,12 @@ app.put(`${P}/profile`, async (c) => {
 
 /* ---- pengaturan situs (GET publik, PUT admin) -------------------------- */
 const DEFAULT_SITE_SETTINGS = {
-  name: "Remaja Karang Taruna RT 02",
+  name: "Kataruma RW 10",
   tagline: "Bersama Berkarya, Bersatu Membangun Lingkungan",
-  email: "karangtaruna.rt02@gmail.com",
+  email: "kataruma.rw10@gmail.com",
   whatsapp: "+62 812-3456-7890",
-  instagram: "@karangtaruna.rt02",
-  address: "Jl. Kalibata Tengah XVI, RT.02/RW.003, Kelurahan Kalibata, Kecamatan Pancoran, Jakarta Selatan, DKI Jakarta 12740",
+  instagram: "@kataruma.rw10",
+  address: "Jl. Kalibata Tengah XVI, RW.10, Kelurahan Kalibata, Kecamatan Pancoran, Jakarta Selatan, DKI Jakarta 12740",
   autoIndex: true,
   lazyLoad: true,
   publicDownload: true,

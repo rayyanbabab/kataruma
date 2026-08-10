@@ -3,8 +3,8 @@ import { Reveal, SectionHeading } from "./Reveal";
 
 const CONTACTS = [
   { icon: Phone, label: "WhatsApp", value: "+62 811-1111-1111", href: "https://wa.me/62811111111", color: "#25D366" },
-  { icon: Instagram, label: "Instagram", value: "@karangtaruna.rt02", href: "https://instagram.com", color: "#E1306C" },
-  { icon: Mail, label: "Email", value: "karangtarunakalibata02@gmail.com", href: "mailto:karangtarunakalibata02@gmail.com", color: "#0F4C81" },
+  { icon: Instagram, label: "Instagram", value: "@kataruma.rw10", href: "https://instagram.com", color: "#E1306C" },
+  { icon: Mail, label: "Email", value: "kataruma.rw10@gmail.com", href: "mailto:kataruma.rw10@gmail.com", color: "#0F4C81" },
 ];
 
 export function Contact() {
@@ -12,7 +12,7 @@ export function Contact() {
     <section id="kontak" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <Reveal>
-          <SectionHeading eyebrow="Kontak" title="Hubungi Kami" desc="Terhubung dengan Remaja Karang Taruna RT 02 melalui kanal berikut." />
+          <SectionHeading eyebrow="Kontak" title="Hubungi Kami" desc="Terhubung dengan Kataruma RW 10 melalui kanal berikut." />
         </Reveal>
 
         <div className="grid lg:grid-cols-2 gap-8">
@@ -22,9 +22,9 @@ export function Contact() {
                 <div className="flex gap-4">
                   <span className="grid place-items-center size-12 rounded-xl bg-[#0F4C81] text-white shrink-0"><MapPin className="size-6" /></span>
                   <div>
-                    <h3 className="text-[#0F4C81]" style={{ fontWeight: 600 }}>Remaja Karang Taruna RT 02</h3>
+                    <h3 className="text-[#0F4C81]" style={{ fontWeight: 600 }}>Kataruma RW 10</h3>
                     <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
-                      Jl. Kalibata Tengah XVI, RT.02/RW.003,<br />
+                      Jl. Kalibata Tengah XVI, RW.10,<br />
                       Kelurahan Kalibata, Kecamatan Pancoran,<br />
                       Jakarta Selatan, DKI Jakarta 12740
                     </p>
@@ -55,7 +55,7 @@ export function Contact() {
           <Reveal delay={0.1}>
             <div className="rounded-2xl overflow-hidden border border-black/5 shadow-lg h-full min-h-[420px]">
               <iframe
-                title="Lokasi RT 02 Kalibata"
+                title="Lokasi RW 10 Kalibata"
                 src="https://www.google.com/maps?q=Kalibata,Pancoran,Jakarta+Selatan&output=embed"
                 className="size-full min-h-[420px]"
                 loading="lazy"

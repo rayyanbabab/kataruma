@@ -153,12 +153,12 @@ const DEFAULT_ADMIN_PROFILE: AdminProfile = {
   phone: "+62 812-3456-7890",
 };
 const DEFAULT_SITE_SETTINGS: SiteSettings = {
-  name: "Remaja Karang Taruna RT 02",
+  name: "Kataruma RW 10",
   tagline: "Bersama Berkarya, Bersatu Membangun Lingkungan",
-  email: "karangtaruna.rt02@gmail.com",
+  email: "kataruma.rw10@gmail.com",
   whatsapp: "+62 812-3456-7890",
-  instagram: "@karangtaruna.rt02",
-  address: "Jl. Kalibata Tengah XVI, RT.02/RW.003, Kelurahan Kalibata, Kecamatan Pancoran, Jakarta Selatan, DKI Jakarta 12740",
+  instagram: "@kataruma.rw10",
+  address: "Jl. Kalibata Tengah XVI, RW.10, Kelurahan Kalibata, Kecamatan Pancoran, Jakarta Selatan, DKI Jakarta 12740",
   autoIndex: true,
   lazyLoad: true,
   publicDownload: true,
@@ -218,7 +218,7 @@ const IMG = {
 };
 
 export const HERO_SLIDES = [
-  { image: IMG.crowd, title: "Perlombaan 17 Agustus", caption: "Semarak lomba warga RT 02" },
+  { image: IMG.crowd, title: "Perlombaan 17 Agustus", caption: "Semarak lomba warga RW 10" },
   { image: IMG.village1, title: "Panggung Kemerdekaan", caption: "Malam puncak perayaan HUT RI" },
   { image: IMG.parade, title: "Pembagian Hadiah", caption: "Apresiasi untuk para juara" },
 ];

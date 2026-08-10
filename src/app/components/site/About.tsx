@@ -5,7 +5,7 @@ const FEATURES = [
   { icon: Camera, title: "Arsip Foto", desc: "Kumpulan foto kegiatan yang tertata rapi per album." },
   { icon: Video, title: "Galeri Video", desc: "Rekaman momen penting dalam format video." },
   { icon: Archive, title: "Arsip Digital", desc: "Dokumentasi tersimpan aman dan mudah diakses." },
-  { icon: HeartHandshake, title: "Kebersamaan", desc: "Menjaga semangat gotong royong warga RT 02." },
+  { icon: HeartHandshake, title: "Kebersamaan", desc: "Menjaga semangat gotong royong warga RW 10." },
 ];
 
 export function About() {
@@ -15,8 +15,8 @@ export function About() {
         <Reveal>
           <SectionHeading
             eyebrow="Tentang Dokumentasi"
-            title="Mengabadikan Semangat Kemerdekaan RT 02"
-            desc="Website ini berisi dokumentasi foto dan video kegiatan HUT RI serta Panggung Kemerdekaan yang diselenggarakan oleh Remaja Karang Taruna RT 02 sebagai arsip digital yang mudah diakses kapan saja."
+            title="Mengabadikan Semangat Kemerdekaan RW 10"
+            desc="Website ini berisi dokumentasi foto dan video kegiatan HUT RI serta Panggung Kemerdekaan yang diselenggarakan oleh Kataruma RW 10 sebagai arsip digital yang mudah diakses kapan saja."
           />
         </Reveal>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">

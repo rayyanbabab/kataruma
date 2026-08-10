@@ -46,7 +46,7 @@ export function Comments() {
           <SectionHeading
             eyebrow="Kolom Komentar"
             title="Tinggalkan Pesan atau Kesan"
-            desc="Sampaikan komentar, saran, atau kesan kamu tentang kegiatan RT 02 di sini."
+            desc="Sampaikan komentar, saran, atau kesan kamu tentang kegiatan RW 10 di sini."
           />
         </Reveal>
 

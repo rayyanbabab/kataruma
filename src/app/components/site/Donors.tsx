@@ -16,7 +16,7 @@ export function Donors() {
           <SectionHeading
             eyebrow="Ucapan Terima Kasih"
             title="Terima Kasih Kepada Para Donatur"
-            desc="Terselenggaranya rangkaian kegiatan HUT RI dan Panggung Kemerdekaan RT 02 tidak lepas dari dukungan serta kemurahan hati Bapak/Ibu warga sekalian. Atas nama Remaja Karang Taruna RT 02, kami mengucapkan terima kasih yang sebesar-besarnya atas segala bentuk sumbangan, baik materi, tenaga, maupun doa, yang telah diberikan. Semoga kebaikan Bapak/Ibu dibalas berlipat ganda oleh Allah SWT."
+            desc="Terselenggaranya rangkaian kegiatan HUT RI dan Panggung Kemerdekaan RW 10 tidak lepas dari dukungan serta kemurahan hati Bapak/Ibu warga sekalian. Atas nama Kataruma RW 10, kami mengucapkan terima kasih yang sebesar-besarnya atas segala bentuk sumbangan, baik materi, tenaga, maupun doa, yang telah diberikan. Semoga kebaikan Bapak/Ibu dibalas berlipat ganda oleh Allah SWT."
           />
         </Reveal>
 
@@ -39,7 +39,7 @@ export function Donors() {
         <Reveal delay={0.2}>
           <p className="text-center text-sm text-muted-foreground mt-10">
             Mohon maaf apabila terdapat nama yang belum tercantum atau terjadi kekeliruan penulisan.
-            Silakan hubungi pengurus RT 02 untuk konfirmasi dan perbaikan data.
+            Silakan hubungi pengurus RW 10 untuk konfirmasi dan perbaikan data.
           </p>
         </Reveal>
       </div>

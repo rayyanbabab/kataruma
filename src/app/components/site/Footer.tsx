@@ -19,9 +19,9 @@ export function Footer() {
         <div>
           <div className="flex items-center gap-3 mb-4">
             <span className="grid place-items-center size-11 rounded-xl bg-white/10"><Flag className="size-6 text-[#D4AF37]" /></span>
-            <span style={{ fontWeight: 700, fontFamily: "var(--font-heading)" }}>Karang Taruna RT 02</span>
+            <span style={{ fontWeight: 700, fontFamily: "var(--font-heading)" }}>Kataruma RW 10</span>
           </div>
-          <p className="text-sm text-white/70 leading-relaxed">Bersama Remaja Karang Taruna 02, Warga 02. Arsip digital dokumentasi kegiatan HUT RI & Panggung Kemerdekaan.</p>
+          <p className="text-sm text-white/70 leading-relaxed">Bersama Kataruma RW 10, Warga RW 10. Arsip digital dokumentasi kegiatan HUT RI & Panggung Kemerdekaan.</p>
         </div>
 
         <div>
@@ -40,7 +40,7 @@ export function Footer() {
           <div className="flex gap-3">
             <a href="https://instagram.com" target="_blank" rel="noreferrer" className="grid place-items-center size-10 rounded-lg bg-white/10 hover:bg-[#D32F2F] transition"><Instagram className="size-5" /></a>
             <a href="https://wa.me/6281234567890" target="_blank" rel="noreferrer" className="grid place-items-center size-10 rounded-lg bg-white/10 hover:bg-[#25D366] transition"><Phone className="size-5" /></a>
-            <a href="mailto:karangtaruna.rt02@gmail.com" className="grid place-items-center size-10 rounded-lg bg-white/10 hover:bg-[#D4AF37] transition"><Mail className="size-5" /></a>
+            <a href="mailto:kataruma.rw10@gmail.com" className="grid place-items-center size-10 rounded-lg bg-white/10 hover:bg-[#D4AF37] transition"><Mail className="size-5" /></a>
           </div>
           
         </div>
@@ -49,13 +49,13 @@ export function Footer() {
           <h4 className="mb-4 text-[#D4AF37]" style={{ fontWeight: 600 }}>Alamat</h4>
           <p className="flex gap-2 text-sm text-white/70 leading-relaxed">
             <MapPin className="size-5 shrink-0 text-[#D4AF37]" />
-            Jl. Kalibata Tengah XVI, RT.02/RW.003, Kelurahan Kalibata, Kecamatan Pancoran, Jakarta Selatan, DKI Jakarta
+            Jl. Kalibata Tengah XVI, RW.10, Kelurahan Kalibata, Kecamatan Pancoran, Jakarta Selatan, DKI Jakarta
           </p>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 mt-12 pt-6 border-t border-white/10 text-center text-sm text-white/60">
-        © 2026 Remaja Karang Taruna RT 02. Seluruh hak cipta dilindungi.
+        © 2026 Kataruma RW 10. Seluruh hak cipta dilindungi.
       </div>
     </footer>
   );

@@ -101,7 +101,7 @@ export function FinancialReports() {
           <SectionHeading
             eyebrow="Transparansi"
             title="Laporan Keuangan"
-            desc="Laporan pemasukan dan pengeluaran kegiatan RT 02, dikelompokkan per tahun. Silakan unduh untuk melihat rincian lengkapnya."
+            desc="Laporan pemasukan dan pengeluaran kegiatan RW 10, dikelompokkan per tahun. Silakan unduh untuk melihat rincian lengkapnya."
           />
         </Reveal>
 

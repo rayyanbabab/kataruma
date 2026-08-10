@@ -59,7 +59,7 @@ export function Kalender() {
           <SectionHeading
             eyebrow="Agenda"
             title="Kalender Kegiatan"
-            desc="Jadwal kegiatan Karang Taruna RT 02, hari besar nasional & Islam, dan hitung mundur menuju acara mendatang."
+            desc="Jadwal kegiatan Kataruma RW 10, hari besar nasional & Islam, dan hitung mundur menuju acara mendatang."
           />
         </Reveal>
 
@@ -122,7 +122,7 @@ export function Kalender() {
               <div className="mt-4 flex flex-wrap gap-4 text-xs text-muted-foreground">
                 <span className="flex items-center gap-1"><span className="size-3 rounded bg-[#D32F2F]/40" /> Hari Nasional</span>
                 <span className="flex items-center gap-1"><span className="size-3 rounded bg-green-300" /> Hari Besar Islam</span>
-                <span className="flex items-center gap-1"><span className="size-3 rounded bg-[#D4AF37]/50" /> Kegiatan RT 02</span>
+                <span className="flex items-center gap-1"><span className="size-3 rounded bg-[#D4AF37]/50" /> Kegiatan RW 10</span>
               </div>
             </div>
           </Reveal>

@@ -1,7 +1,7 @@
 
-  # Web dokum RT 02
+  # Kataruma RW 10
 
-  This is a code bundle for Web dokum RT 02. The original project is available
+  This is a code bundle for Kataruma RW 10. The original project is available
 
   ## Running the code
 

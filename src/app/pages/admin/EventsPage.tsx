@@ -45,7 +45,7 @@ export function EventsPage() {
 
       {/* custom events */}
       <div>
-        <h3 className="text-[#0F4C81] mb-3 flex items-center gap-2" style={{ fontWeight: 600 }}><Sparkles className="size-5 text-[#D4AF37]" /> Kegiatan RT 02</h3>
+        <h3 className="text-[#0F4C81] mb-3 flex items-center gap-2" style={{ fontWeight: 600 }}><Sparkles className="size-5 text-[#D4AF37]" /> Kegiatan RW 10</h3>
         {customEvents.length === 0 ? (
           <div className="rounded-2xl border-2 border-dashed border-[#0F4C81]/20 bg-white p-10 text-center text-muted-foreground">Belum ada kegiatan. Klik "Tambah Kegiatan".</div>
         ) : (

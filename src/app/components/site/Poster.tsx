@@ -13,7 +13,7 @@ export function PosterSection() {
     <section id="poster-informasi" className="py-24 bg-[#F5F7FA]">
       <div className="max-w-5xl mx-auto px-4 md:px-8">
         <Reveal>
-          <SectionHeading eyebrow="Pengumuman" title="Poster Informasi" desc="Info dan pengumuman terbaru seputar kegiatan RT 02." />
+          <SectionHeading eyebrow="Pengumuman" title="Poster Informasi" desc="Info dan pengumuman terbaru seputar kegiatan RW 10." />
         </Reveal>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {active.map((p, i) => {

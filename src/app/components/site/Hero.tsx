@@ -34,13 +34,13 @@ export function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-28 w-full">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-3xl">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#f4d97a] text-sm mb-4 md:mb-6">
-            Bersama Remaja Karang Taruna 02, Warga 02
+            Bersama Kataruma RW 10, Warga RW 10
           </span>
           <h1 className="text-white text-3xl md:text-6xl leading-tight" style={{ fontWeight: 800 }}>
-            Dokumentasi <span className="text-[#D4AF37]">KEGIATAN HUT RI RT 02</span>
+            Dokumentasi <span className="text-[#D4AF37]">KEGIATAN HUT RI RW 10</span>
           </h1>
           <p className="mt-4 md:mt-6 text-white/85 text-base md:text-lg max-w-2xl leading-relaxed">
-            Mengabadikan setiap momen kegiatan HUT RI dan Panggung Kemerdekaan yang diselenggarakan oleh Remaja Karang Taruna RT 02.
+            Mengabadikan setiap momen kegiatan HUT RI dan Panggung Kemerdekaan yang diselenggarakan oleh Kataruma RW 10.
           </p>
 
           <div className="mt-6 md:mt-8 flex flex-wrap gap-3 md:gap-4">
