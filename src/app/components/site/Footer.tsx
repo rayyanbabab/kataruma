@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { Flag, Instagram, Phone, Mail, MapPin } from "lucide-react";
+import { useStore } from "../../data/store";
 
 const QUICK = [
   { label: "Beranda", hash: "#beranda" },
@@ -12,6 +13,7 @@ const QUICK = [
 ];
 
 export function Footer() {
+  const { siteSettings } = useStore();
   const go = (hash: string) => document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
   return (
     <footer className="bg-[#0F4C81] text-white pt-16 pb-8">
@@ -19,9 +21,9 @@ export function Footer() {
         <div>
           <div className="flex items-center gap-3 mb-4">
             <span className="grid place-items-center size-11 rounded-xl bg-white/10"><Flag className="size-6 text-[#D4AF37]" /></span>
-            <span style={{ fontWeight: 700, fontFamily: "var(--font-heading)" }}>Kataruma RW 10</span>
+            <span style={{ fontWeight: 700, fontFamily: "var(--font-heading)" }}>{siteSettings.name}</span>
           </div>
-          <p className="text-sm text-white/70 leading-relaxed">Bersama Kataruma RW 10, Warga RW 10. Arsip digital dokumentasi kegiatan HUT RI & Panggung Kemerdekaan.</p>
+          <p className="text-sm text-white/70 leading-relaxed">{siteSettings.tagline}</p>
         </div>
 
         <div>
@@ -38,24 +40,23 @@ export function Footer() {
         <div>
           <h4 className="mb-4 text-[#D4AF37]" style={{ fontWeight: 600 }}>Media Sosial</h4>
           <div className="flex gap-3">
-            <a href="https://instagram.com" target="_blank" rel="noreferrer" className="grid place-items-center size-10 rounded-lg bg-white/10 hover:bg-[#D32F2F] transition"><Instagram className="size-5" /></a>
-            <a href="https://wa.me/6281234567890" target="_blank" rel="noreferrer" className="grid place-items-center size-10 rounded-lg bg-white/10 hover:bg-[#25D366] transition"><Phone className="size-5" /></a>
-            <a href="mailto:kataruma.rw10@gmail.com" className="grid place-items-center size-10 rounded-lg bg-white/10 hover:bg-[#D4AF37] transition"><Mail className="size-5" /></a>
+            <a href={`https://instagram.com/${siteSettings.instagram.replace('@','')}`} target="_blank" rel="noreferrer" className="grid place-items-center size-10 rounded-lg bg-white/10 hover:bg-[#D32F2F] transition"><Instagram className="size-5" /></a>
+            <a href={`https://wa.me/${siteSettings.whatsapp.replace(/\D/g,'')}`} target="_blank" rel="noreferrer" className="grid place-items-center size-10 rounded-lg bg-white/10 hover:bg-[#25D366] transition"><Phone className="size-5" /></a>
+            <a href={`mailto:${siteSettings.email}`} className="grid place-items-center size-10 rounded-lg bg-white/10 hover:bg-[#D4AF37] transition"><Mail className="size-5" /></a>
           </div>
-          
         </div>
 
         <div>
           <h4 className="mb-4 text-[#D4AF37]" style={{ fontWeight: 600 }}>Alamat</h4>
           <p className="flex gap-2 text-sm text-white/70 leading-relaxed">
             <MapPin className="size-5 shrink-0 text-[#D4AF37]" />
-            Jl. Kalibata Tengah XVI, RW.10, Kelurahan Kalibata, Kecamatan Pancoran, Jakarta Selatan, DKI Jakarta
+            {siteSettings.address}
           </p>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 mt-12 pt-6 border-t border-white/10 text-center text-sm text-white/60">
-        © 2026 Kataruma RW 10. Seluruh hak cipta dilindungi.
+        © {new Date().getFullYear()} {siteSettings.name}. Seluruh hak cipta dilindungi.
       </div>
     </footer>
   );

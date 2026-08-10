@@ -130,6 +130,13 @@ export interface Poster {
   createdAt: string;
 }
 
+export interface Donor {
+  id: string;
+  name: string;
+  note?: string;
+  order?: number; // urutan tampil (opsional)
+}
+
 export interface AdminProfile {
   name: string;
   email: string;
@@ -173,6 +180,7 @@ interface Store {
   comments: Comment[];
   reports: Report[];
   posters: Poster[];
+  donors: Donor[];
   visitors: number;
   loading: boolean;
   isAuthed: boolean;
@@ -205,6 +213,9 @@ interface Store {
   addPoster: (p: Omit<Poster, "id" | "createdAt">) => void;
   updatePoster: (id: string, patch: Partial<Poster>) => void;
   deletePoster: (id: string) => void;
+  addDonor: (d: Omit<Donor, "id">) => void;
+  updateDonor: (id: string, d: Partial<Donor>) => void;
+  deleteDonor: (id: string) => void;
 }
 
 /* ------------------------------------------------------------------ */
@@ -335,6 +346,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [comments, setComments] = usePersisted<Comment[]>("rt02_comments_v2", []);
   const [reports, setReports] = usePersisted<Report[]>("rt02_reports_v1", []);
   const [posters, setPosters] = usePersisted<Poster[]>("rt02_posters_v1", []);
+  const [donors, setDonors] = usePersisted<Donor[]>("rt02_donors_v1", []);
   const [autoPrefs, setAutoPrefs] = usePersisted<Record<string, boolean>>("rt02_auto_prefs_v2", {});
   const [visitors, setVisitors] = usePersisted<number>("rt02_visitors_v2", 0);
   const [isAuthed, setIsAuthed] = usePersisted<boolean>("rt02_auth_v2", false);
@@ -355,6 +367,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       setComments(d.comments || []);
       setReports(d.reports || []);
       setPosters(d.posters || []);
+      setDonors(d.donors || []);
       setAutoPrefs(d.autoPrefs || {});
       setVisitors(d.visitors || 0);
       if (d.adminProfile) setAdminProfile(d.adminProfile);
@@ -364,7 +377,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setLoading(false);
     }
-  }, [setAlbums, setPhotos, setVideos, setCustomEvents, setComments, setReports, setPosters, setAutoPrefs, setVisitors, setAdminProfile, setSiteSettings]);
+  }, [setAlbums, setPhotos, setVideos, setCustomEvents, setComments, setReports, setPosters, setDonors, setAutoPrefs, setVisitors, setAdminProfile, setSiteSettings]);
 
   // Muat data + hitung kunjungan sekali per sesi.
   useEffect(() => {
@@ -424,6 +437,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       comments,
       reports,
       posters,
+      donors,
       visitors,
       loading,
       isAuthed,
@@ -602,8 +616,22 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         setPosters((prev) => prev.filter((x) => x.id !== id));
         withServer(() => api(`/poster/${id}`, { method: "DELETE", secret }), "Gagal menghapus poster");
       },
+
+      addDonor: (d) => {
+        const item: Donor = { ...d, id: uid() };
+        setDonors((prev) => [...prev, item]);
+        withServer(() => api("/donor", { method: "POST", secret, body: item }), "Gagal menambah donatur");
+      },
+      updateDonor: (id, patch) => {
+        setDonors((prev) => prev.map((x) => (x.id === id ? { ...x, ...patch } : x)));
+        withServer(() => api(`/donor/${id}`, { method: "PUT", secret, body: patch }), "Gagal memperbarui donatur");
+      },
+      deleteDonor: (id) => {
+        setDonors((prev) => prev.filter((x) => x.id !== id));
+        withServer(() => api(`/donor/${id}`, { method: "DELETE", secret }), "Gagal menghapus donatur");
+      },
     }),
-    [albums, photos, videos, customEvents, events, comments, reports, posters, isAuthed, visitors, loading, secret, adminProfile, siteSettings, refresh, withServer, setAlbums, setPhotos, setVideos, setCustomEvents, setComments, setReports, setPosters, setAutoPrefs, setIsAuthed, setSecret, setAdminProfile, setSiteSettings]
+    [albums, photos, videos, customEvents, events, comments, reports, posters, donors, isAuthed, visitors, loading, secret, adminProfile, siteSettings, refresh, withServer, setAlbums, setPhotos, setVideos, setCustomEvents, setComments, setReports, setPosters, setDonors, setAutoPrefs, setIsAuthed, setSecret, setAdminProfile, setSiteSettings]
   );
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;

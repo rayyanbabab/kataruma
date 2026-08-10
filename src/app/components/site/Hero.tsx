@@ -1,9 +1,10 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { Images } from "lucide-react";
-import { HERO_SLIDES } from "../../data/store";
+import { HERO_SLIDES, useStore } from "../../data/store";
 
 export function Hero() {
+  const { siteSettings } = useStore();
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-28 w-full">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-3xl">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#f4d97a] text-sm mb-4 md:mb-6">
-            Bersama Kataruma RW 10, Warga RW 10
+            {siteSettings.tagline}
           </span>
           <h1 className="text-white text-3xl md:text-6xl leading-tight" style={{ fontWeight: 800 }}>
             Dokumentasi <span className="text-[#D4AF37]">KEGIATAN HUT RI RW 10</span>

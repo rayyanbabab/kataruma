@@ -1,18 +1,39 @@
 import { MapPin, Phone, Instagram, Mail } from "lucide-react";
 import { Reveal, SectionHeading } from "./Reveal";
-
-const CONTACTS = [
-  { icon: Phone, label: "WhatsApp", value: "+62 811-1111-1111", href: "https://wa.me/62811111111", color: "#25D366" },
-  { icon: Instagram, label: "Instagram", value: "@kataruma.rw10", href: "https://instagram.com", color: "#E1306C" },
-  { icon: Mail, label: "Email", value: "kataruma.rw10@gmail.com", href: "mailto:kataruma.rw10@gmail.com", color: "#0F4C81" },
-];
+import { useStore } from "../../data/store";
 
 export function Contact() {
+  const { siteSettings } = useStore();
+
+  const CONTACTS = [
+    {
+      icon: Phone,
+      label: "WhatsApp",
+      value: siteSettings.whatsapp,
+      href: `https://wa.me/${siteSettings.whatsapp.replace(/\D/g, "")}`,
+      color: "#25D366",
+    },
+    {
+      icon: Instagram,
+      label: "Instagram",
+      value: siteSettings.instagram,
+      href: `https://instagram.com/${siteSettings.instagram.replace("@", "")}`,
+      color: "#E1306C",
+    },
+    {
+      icon: Mail,
+      label: "Email",
+      value: siteSettings.email,
+      href: `mailto:${siteSettings.email}`,
+      color: "#0F4C81",
+    },
+  ];
+
   return (
     <section id="kontak" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <Reveal>
-          <SectionHeading eyebrow="Kontak" title="Hubungi Kami" desc="Terhubung dengan Kataruma RW 10 melalui kanal berikut." />
+          <SectionHeading eyebrow="Kontak" title="Hubungi Kami" desc="Terhubung dengan kami melalui kanal berikut." />
         </Reveal>
 
         <div className="grid lg:grid-cols-2 gap-8">
@@ -22,11 +43,9 @@ export function Contact() {
                 <div className="flex gap-4">
                   <span className="grid place-items-center size-12 rounded-xl bg-[#0F4C81] text-white shrink-0"><MapPin className="size-6" /></span>
                   <div>
-                    <h3 className="text-[#0F4C81]" style={{ fontWeight: 600 }}>Kataruma RW 10</h3>
+                    <h3 className="text-[#0F4C81]" style={{ fontWeight: 600 }}>{siteSettings.name}</h3>
                     <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
-                      Jl. Kalibata Tengah XVI, RW.10,<br />
-                      Kelurahan Kalibata, Kecamatan Pancoran,<br />
-                      Jakarta Selatan, DKI Jakarta 12740
+                      {siteSettings.address}
                     </p>
                   </div>
                 </div>
@@ -55,8 +74,8 @@ export function Contact() {
           <Reveal delay={0.1}>
             <div className="rounded-2xl overflow-hidden border border-black/5 shadow-lg h-full min-h-[420px]">
               <iframe
-                title="Lokasi RW 10 Kalibata"
-                src="https://www.google.com/maps?q=Kalibata,Pancoran,Jakarta+Selatan&output=embed"
+                title={`Lokasi ${siteSettings.name}`}
+                src={`https://www.google.com/maps?q=${encodeURIComponent(siteSettings.address)}&output=embed`}
                 className="size-full min-h-[420px]"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

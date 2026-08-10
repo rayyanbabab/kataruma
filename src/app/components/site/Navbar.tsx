@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { Search, Menu, X, Flag } from "lucide-react";
+import { useStore } from "../../data/store";
 
 const LINKS = [
   { label: "Beranda", to: "#beranda" },
@@ -14,6 +15,7 @@ const LINKS = [
 ];
 
 export function Navbar({ onSearch }: { onSearch: () => void }) {
+  const { siteSettings } = useStore();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
@@ -50,9 +52,9 @@ export function Navbar({ onSearch }: { onSearch: () => void }) {
           </span>
           <span className="leading-tight">
             <span className={`block text-sm ${scrolled ? "text-[#0F4C81]" : "text-white"}`} style={{ fontWeight: 700, fontFamily: "var(--font-heading)" }}>
-              Kataruma RW 10
+              {siteSettings.name}
             </span>
-            <span className={`block text-xs ${scrolled ? "text-muted-foreground" : "text-white/70"}`}>Dokumentasi HUT RI</span>
+            <span className={`block text-xs ${scrolled ? "text-muted-foreground" : "text-white/70"}`}>{siteSettings.tagline}</span>
           </span>
         </Link>
 
