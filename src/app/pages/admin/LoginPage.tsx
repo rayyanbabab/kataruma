@@ -27,7 +27,7 @@ export function LoginPage() {
     setBusy(true);
     try {
       if (await login(username, password)) {
-        toast.success("Berhasil masuk. Selamat datang, Diki Fadillah!");
+        toast.success("Berhasil masuk. Selamat datang!");
         navigate("/adminrt02");
       } else {
         setError(true);

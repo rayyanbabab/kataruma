@@ -19,11 +19,14 @@ const NAV = [
 ];
 
 export function AdminLayout() {
-  const { isAuthed, logout, admin } = useStore();
+  const { isAuthed, logout, admin, adminProfile } = useStore();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   if (!isAuthed) return <Navigate to="/adminrt02/login" replace />;
+
+  const adminName = adminProfile?.name || admin?.name || "Admin";
+  const initials = adminName.trim().split(/\s+/).map((w) => w[0]).join("").toUpperCase().slice(0, 2) || "AD";
 
   const doLogout = () => {
     logout();
@@ -92,11 +95,11 @@ export function AdminLayout() {
           <div className="flex-1" />
           <div className="flex items-center gap-3">
             <div className="text-right hidden sm:block">
-              <p className="text-sm" style={{ fontWeight: 600 }}>{admin.name}</p>
+              <p className="text-sm" style={{ fontWeight: 600 }}>{adminName}</p>
               <p className="text-xs text-muted-foreground">Administrator</p>
             </div>
             <span className="grid place-items-center size-10 rounded-full bg-gradient-to-br from-[#0F4C81] to-[#D32F2F] text-white" style={{ fontWeight: 700 }}>
-              DF
+              {initials}
             </span>
           </div>
         </header>

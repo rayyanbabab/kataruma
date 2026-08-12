@@ -4,7 +4,7 @@ import { BarChart, Bar, XAxis, ResponsiveContainer, Tooltip, CartesianGrid } fro
 import { useStore, formatDate, countMedia } from "../../data/store";
 
 export function DashboardPage() {
-  const { albums, photos, videos, visitors } = useStore();
+  const { albums, photos, videos, visitors, adminProfile, admin } = useStore();
 
   const stats = [
     { label: "Total Album", value: albums.length, icon: FolderOpen, color: "#0F4C81" },
@@ -27,12 +27,14 @@ export function DashboardPage() {
     return { name, Foto: c.photos, Video: c.videos };
   });
 
+  const adminName = adminProfile?.name || admin?.name || "Admin";
+
   return (
     <div className="space-y-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl text-[#0F4C81]" style={{ fontWeight: 700 }}>Dashboard</h1>
-          <p className="text-muted-foreground text-sm">Selamat datang kembali, Diki Fadillah 👋</p>
+          <p className="text-muted-foreground text-sm">Selamat datang kembali, {adminName} 👋</p>
         </div>
         <Link to="/adminrt02/albums" className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#D32F2F] text-white hover:bg-[#b71c1c] transition shadow-lg" style={{ fontWeight: 600 }}>
           <Plus className="size-5" /> Tambah Album
