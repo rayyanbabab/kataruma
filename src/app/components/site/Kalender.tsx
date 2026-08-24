@@ -25,14 +25,25 @@ export function Kalender() {
     return map;
   }, [events]);
 
+  const getLocalTodayStr = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  };
+
   const upcoming = useMemo(() => {
-    const todayStr = new Date().toISOString().slice(0, 10);
-    return events.filter((e) => e.date >= todayStr).slice(0, 4);
+    const todayStr = getLocalTodayStr();
+    return [...events]
+      .filter((e) => e.date >= todayStr)
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .slice(0, 4);
   }, [events]);
 
   const countdowns = useMemo(() => {
-    const todayStr = new Date().toISOString().slice(0, 10);
-    return events.filter((e) => e.date >= todayStr && e.showCountdown).slice(0, 3);
+    const todayStr = getLocalTodayStr();
+    return [...events]
+      .filter((e) => e.date >= todayStr && e.showCountdown)
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .slice(0, 3);
   }, [events]);
 
   const first = new Date(cursor.y, cursor.m, 1);

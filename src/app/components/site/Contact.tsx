@@ -5,19 +5,22 @@ import { useStore } from "../../data/store";
 export function Contact() {
   const { siteSettings } = useStore();
 
+  const cleanPhone = siteSettings.whatsapp.replace(/\D/g, "").replace(/^0/, "62");
+  const cleanInstagram = siteSettings.instagram.replace(/^@/, "").trim();
+
   const CONTACTS = [
     {
       icon: Phone,
       label: "WhatsApp",
       value: siteSettings.whatsapp,
-      href: `https://wa.me/${siteSettings.whatsapp.replace(/\D/g, "")}`,
+      href: `https://wa.me/${cleanPhone}`,
       color: "#25D366",
     },
     {
       icon: Instagram,
       label: "Instagram",
       value: siteSettings.instagram,
-      href: `https://instagram.com/${siteSettings.instagram.replace("@", "")}`,
+      href: `https://instagram.com/${cleanInstagram}`,
       color: "#E1306C",
     },
     {

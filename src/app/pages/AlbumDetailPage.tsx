@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router";
 import { ArrowLeft, Calendar, Image as ImageIcon, Film, Play, Download, ZoomIn, X, FolderOpen, ExternalLink } from "lucide-react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { AnimatePresence, motion } from "motion/react";
-import { useStore, formatDate, VIDEO_SOURCE_LABEL, type Video } from "../data/store";
+import { useStore, formatDate, VIDEO_SOURCE_LABEL, ensureAbsoluteUrl, type Video } from "../data/store";
 import { Lightbox } from "../components/site/Lightbox";
 import { isEmbeddable, toEmbedUrl } from "../components/site/videoUtils";
 
@@ -16,7 +16,7 @@ export function AlbumDetailPage() {
   const [tab, setTab] = useState<"foto" | "video">("foto");
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [activeVideo, setActiveVideo] = useState<Video | null>(null);
-  const [visiblePhotos, setVisiblePhotos] = useState(3);
+  const [visiblePhotos, setVisiblePhotos] = useState(12);
 
   if (!album) {
     return (
@@ -28,6 +28,8 @@ export function AlbumDetailPage() {
       </div>
     );
   }
+
+  const driveUrl = ensureAbsoluteUrl(album.driveLink);
 
   return (
     <div className="pt-16">
@@ -53,9 +55,9 @@ export function AlbumDetailPage() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-10">
         <p className="text-muted-foreground max-w-3xl leading-relaxed">{album.description}</p>
 
-        {album.driveLink && (
+        {driveUrl && (
           <a
-            href={album.driveLink}
+            href={driveUrl}
             target="_blank"
             rel="noreferrer"
             className="mt-5 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#D4AF37] text-white hover:bg-[#b8942c] transition shadow-lg"
@@ -105,7 +107,7 @@ export function AlbumDetailPage() {
               {visiblePhotos < albumPhotos.length && (
                 <div className="text-center mt-8">
                   <button
-                    onClick={() => setVisiblePhotos((v) => v + 3)}
+                    onClick={() => setVisiblePhotos((v) => v + 12)}
                     className="px-8 py-3 rounded-xl bg-[#0F4C81] text-white hover:bg-[#D32F2F] transition shadow-lg"
                     style={{ fontWeight: 600 }}
                   >

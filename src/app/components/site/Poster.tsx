@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { X, Megaphone } from "lucide-react";
 import { Reveal, SectionHeading } from "./Reveal";
-import { useStore } from "../../data/store";
+import { useStore, ensureAbsoluteUrl } from "../../data/store";
 
 /** Section "Poster Informasi" — grid poster aktif, ditaruh di tengah alur halaman. */
 export function PosterSection() {
@@ -17,11 +17,12 @@ export function PosterSection() {
         </Reveal>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {active.map((p, i) => {
-            const Wrapper = p.link ? "a" : "div";
+            const absLink = ensureAbsoluteUrl(p.link);
+            const Wrapper = absLink ? "a" : "div";
             return (
               <Reveal key={p.id} delay={i * 0.06}>
                 <Wrapper
-                  {...(p.link ? { href: p.link, target: "_blank", rel: "noreferrer" } : {})}
+                  {...(absLink ? { href: absLink, target: "_blank", rel: "noreferrer" } : {})}
                   className="block rounded-2xl overflow-hidden border border-black/5 bg-white group"
                 >
                   <div className="aspect-[3/4] overflow-hidden">
@@ -70,8 +71,8 @@ export function PosterPopup() {
           <X className="size-5" />
         </button>
         <div className="rounded-2xl overflow-hidden bg-white shadow-2xl">
-          {poster.link ? (
-            <a href={poster.link} target="_blank" rel="noreferrer">
+          {ensureAbsoluteUrl(poster.link) ? (
+            <a href={ensureAbsoluteUrl(poster.link)} target="_blank" rel="noreferrer">
               <img src={poster.imageUrl} alt={poster.title} className="w-full max-h-[75vh] object-contain bg-black" />
             </a>
           ) : (

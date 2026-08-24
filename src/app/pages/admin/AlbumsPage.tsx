@@ -6,13 +6,18 @@ import { useStore, formatDate, countMedia, type Album } from "../../data/store";
 import { compressImage } from "../../data/imageCompress";
 import { Modal, ConfirmDialog, Field, inputClass } from "./ui";
 
-const empty = { name: "", description: "", date: new Date().toISOString().slice(0, 10), cover: "", status: "draft" as const, driveLink: "" };
+const getTodayLocal = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+};
+
+const empty = () => ({ name: "", description: "", date: getTodayLocal(), cover: "", status: "draft" as const, driveLink: "" });
 
 export function AlbumsPage() {
   const { albums, photos, videos, addAlbum, updateAlbum, deleteAlbum } = useStore();
   const [modal, setModal] = useState(false);
   const [editing, setEditing] = useState<Album | null>(null);
-  const [form, setForm] = useState<Omit<Album, "id">>(empty);
+  const [form, setForm] = useState<Omit<Album, "id">>(empty());
   const [del, setDel] = useState<Album | null>(null);
   const [q, setQ] = useState("");
 

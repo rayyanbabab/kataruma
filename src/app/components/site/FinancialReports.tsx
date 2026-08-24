@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { FileSpreadsheet, FileText, File as FileIcon, Download, ChevronDown, Wallet, X, Eye } from "lucide-react";
 import { Reveal, SectionHeading } from "./Reveal";
 import { useStore, type Report, type ReportFileType } from "../../data/store";
@@ -91,6 +91,12 @@ export function FinancialReports() {
 
   const [openYear, setOpenYear] = useState<number | null>(byYear[0]?.[0] ?? null);
   const [preview, setPreview] = useState<Report | null>(null);
+
+  useEffect(() => {
+    if (openYear === null && byYear.length > 0) {
+      setOpenYear(byYear[0][0]);
+    }
+  }, [byYear, openYear]);
 
   if (reports.length === 0) return null;
 

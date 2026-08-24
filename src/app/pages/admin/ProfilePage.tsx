@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { Mail, Phone, ShieldCheck } from "lucide-react";
 import { useStore } from "../../data/store";
@@ -11,6 +11,15 @@ export function ProfilePage() {
     email: adminProfile.email,
     phone: adminProfile.phone,
   });
+
+  useEffect(() => {
+    setProfile({
+      name: adminProfile.name,
+      email: adminProfile.email,
+      phone: adminProfile.phone,
+    });
+  }, [adminProfile]);
+
   const [pwd, setPwd] = useState({ current: "", next: "", confirm: "" });
   const [busy, setBusy] = useState(false);
   const [savingProfile, setSavingProfile] = useState(false);

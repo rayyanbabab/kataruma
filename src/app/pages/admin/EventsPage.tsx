@@ -4,16 +4,21 @@ import { toast } from "sonner";
 import { useStore, formatDate, type AgendaEvent } from "../../data/store";
 import { Modal, ConfirmDialog, Field, inputClass } from "./ui";
 
-const empty = { title: "", date: new Date().toISOString().slice(0, 10), description: "", showCountdown: true };
+const getTodayLocal = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+};
+
+const empty = () => ({ title: "", date: getTodayLocal(), description: "", showCountdown: true });
 
 export function EventsPage() {
   const { events, customEvents, addEvent, updateEvent, deleteEvent } = useStore();
   const [modal, setModal] = useState(false);
   const [editing, setEditing] = useState<AgendaEvent | null>(null);
-  const [form, setForm] = useState(empty);
+  const [form, setForm] = useState(empty());
   const [del, setDel] = useState<AgendaEvent | null>(null);
 
-  const openNew = () => { setEditing(null); setForm(empty); setModal(true); };
+  const openNew = () => { setEditing(null); setForm(empty()); setModal(true); };
   const openEdit = (e: AgendaEvent) => { setEditing(e); setForm({ title: e.title, date: e.date, description: e.description, showCountdown: e.showCountdown }); setModal(true); };
 
   const save = (e: React.FormEvent) => {
@@ -23,7 +28,7 @@ export function EventsPage() {
     setModal(false);
   };
 
-  const todayStr = new Date().toISOString().slice(0, 10);
+  const todayStr = getTodayLocal();
   const autoEvents = events.filter((e) => e.type !== "custom" && e.date >= todayStr);
 
   const toggleCountdown = (e: AgendaEvent) => {

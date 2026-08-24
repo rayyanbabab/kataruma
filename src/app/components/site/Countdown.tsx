@@ -1,8 +1,26 @@
 import { useEffect, useState } from "react";
 
+function parseTargetDate(dateStr: string): Date {
+  const clean = dateStr.includes("T") ? dateStr.split("T")[0] : dateStr;
+  const parts = clean.split("-").map(Number);
+  if (parts.length === 3 && !parts.some(isNaN)) {
+    return new Date(parts[0], parts[1] - 1, parts[2], 0, 0, 0);
+  }
+  return new Date(dateStr);
+}
+
 function diff(target: Date) {
-  const ms = Math.max(0, target.getTime() - Date.now());
+  const now = new Date();
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+  const targetDay = new Date(target.getFullYear(), target.getMonth(), target.getDate(), 0, 0, 0);
+  
+  const isPast = targetDay.getTime() < startOfToday.getTime();
+  const isToday = targetDay.getTime() === startOfToday.getTime();
+  const ms = Math.max(0, target.getTime() - now.getTime());
+
   return {
+    isPast,
+    isToday,
     done: ms === 0,
     days: Math.floor(ms / 86400000),
     hours: Math.floor((ms % 86400000) / 3600000),
@@ -12,18 +30,24 @@ function diff(target: Date) {
 }
 
 export function Countdown({ date, compact }: { date: string; compact?: boolean }) {
-  const target = new Date(date + "T00:00:00");
+  const target = parseTargetDate(date);
   const [t, setT] = useState(() => diff(target));
 
   useEffect(() => {
-    const id = setInterval(() => setT(diff(target)), 1000);
+    const tgt = parseTargetDate(date);
+    setT(diff(tgt));
+    const id = setInterval(() => setT(diff(tgt)), 1000);
     return () => clearInterval(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date]);
 
-  if (t.done) {
+  if (t.isPast) {
+    return <span className="text-sm text-white/70" style={{ fontWeight: 600 }}>✓ Selesai</span>;
+  }
+
+  if (t.isToday || t.done) {
     return <span className="text-sm text-[#D4AF37]" style={{ fontWeight: 600 }}>🎉 Hari ini!</span>;
   }
+
 
   const items = [
     { v: t.days, l: "Hari" },

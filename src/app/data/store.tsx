@@ -649,6 +649,16 @@ export function useStore() {
 
 export function formatDate(iso: string) {
   try {
+    if (!iso) return "-";
+    const clean = iso.includes("T") ? iso.split("T")[0] : iso;
+    const parts = clean.split("-").map(Number);
+    if (parts.length === 3 && !parts.some(isNaN)) {
+      return new Date(parts[0], parts[1] - 1, parts[2]).toLocaleDateString("id-ID", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+    }
     return new Date(iso).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
   } catch {
     return iso;
@@ -670,3 +680,12 @@ export const VIDEO_SOURCE_LABEL: Record<VideoSource, string> = {
   mp4: "Video MP4",
   link: "Tautan",
 };
+
+export function ensureAbsoluteUrl(url?: string): string {
+  if (!url) return "";
+  const trimmed = url.trim();
+  if (!trimmed) return "";
+  if (/^(https?:\/\/|mailto:|tel:)/i.test(trimmed)) return trimmed;
+  return `https://${trimmed}`;
+}
+

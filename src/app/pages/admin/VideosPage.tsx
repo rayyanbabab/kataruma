@@ -5,6 +5,11 @@ import { useStore, formatDate, type Video } from "../../data/store";
 import { compressImage } from "../../data/imageCompress";
 import { Modal, ConfirmDialog, Field, inputClass } from "./ui";
 
+const getTodayLocal = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+};
+
 const empty = (albumId: string): Omit<Video, "id"> => ({
   albumId,
   title: "",
@@ -14,7 +19,7 @@ const empty = (albumId: string): Omit<Video, "id"> => ({
   source: "youtube",
   url: "",
   tags: [],
-  date: new Date().toISOString().slice(0, 10),
+  date: getTodayLocal(),
 });
 
 export function VideosPage() {
@@ -118,15 +123,38 @@ export function VideosPage() {
             } />
           </Field>
           {form.source === "mp4" && (
-            <Field label="Atau unggah file MP4">
-              <input type="file" accept="video/mp4" onChange={(e) => { const f = e.target.files?.[0]; if (f) setForm({ ...form, url: URL.createObjectURL(f) }); }} className="text-sm" />
+            <Field label="Atau pilih file MP4 (maksimal 15MB)">
+              <input
+                type="file"
+                accept="video/mp4"
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (!f) return;
+                  if (f.size > 15 * 1024 * 1024) {
+                    toast.error("Ukuran file MP4 melebihi 15MB. Disarankan unggah ke YouTube atau Google Drive lalu sematkan tautannya.");
+                    return;
+                  }
+                  const reader = new FileReader();
+                  reader.onload = () => {
+                    if (typeof reader.result === "string") {
+                      setForm((prev) => ({ ...prev, url: reader.result as string }));
+                      toast.success("File MP4 berhasil dimuat.");
+                    }
+                  };
+                  reader.onerror = () => toast.error("Gagal membaca file MP4.");
+                  reader.readAsDataURL(f);
+                }}
+                className="text-sm"
+              />
             </Field>
           )}
           <div className="grid sm:grid-cols-2 gap-4">
             <Field label="Durasi"><input value={form.duration} onChange={(e) => setForm({ ...form, duration: e.target.value })} className={inputClass} placeholder="04:30" /></Field>
             <Field label="Tanggal Upload"><input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} className={inputClass} /></Field>
           </div>
-          <Field label="Tags (pisahkan dengan koma)"><input value={form.tags.join(", ")} onChange={(e) => setForm({ ...form, tags: e.target.value.split(",").map((t) => t.trim()).filter(Boolean) })} className={inputClass} /></Field>
+          <Field label="Tags (pisahkan dengan koma)">
+            <input value={(form.tags ?? []).join(", ")} onChange={(e) => setForm({ ...form, tags: e.target.value.split(",").map((t) => t.trim()).filter(Boolean) })} className={inputClass} />
+          </Field>
           <Field label="Thumbnail">
             <div className="flex items-center gap-4">
               {form.thumbnail && <img src={form.thumbnail} alt="thumb" className="w-28 aspect-video rounded-lg object-cover" />}

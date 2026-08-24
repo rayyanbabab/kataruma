@@ -53,9 +53,9 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
         ? videos.find((v) => v.id === item.id)
         : albums.find((a) => a.id === item.id);
     const blob = [
-      item.title,
-      item.albumName,
-      item.date.slice(0, 4),
+      item.title || "",
+      item.albumName || "",
+      (item.date || "").slice(0, 4),
       (extra as any)?.caption ?? "",
       (extra as any)?.description ?? "",
       ((extra as any)?.tags ?? []).join(" "),

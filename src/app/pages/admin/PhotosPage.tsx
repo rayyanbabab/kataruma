@@ -12,24 +12,56 @@ export function PhotosPage() {
   const [drag, setDrag] = useState(false);
   const [editing, setEditing] = useState<Photo | null>(null);
   const [del, setDel] = useState<Photo | null>(null);
+  const [uploading, setUploading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const list = photos.filter((p) => (albumId ? p.albumId === albumId : true) && (p.title.toLowerCase().includes(q.toLowerCase()) || p.tags.join(" ").toLowerCase().includes(q.toLowerCase())));
+  const list = photos.filter((p) => {
+    const matchesAlbum = albumId ? p.albumId === albumId : true;
+    const qLower = q.toLowerCase();
+    const matchesTitle = (p.title || "").toLowerCase().includes(qLower);
+    const matchesTags = (p.tags ?? []).join(" ").toLowerCase().includes(qLower);
+    return matchesAlbum && (matchesTitle || matchesTags);
+  });
 
-  const handleFiles = (files: FileList | null) => {
-    if (!files || !albumId) {
+  const getTodayLocal = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  };
+
+  const handleFiles = async (files: FileList | null) => {
+    if (!files || files.length === 0 || !albumId) {
       if (!albumId) toast.error("Pilih album terlebih dahulu.");
       return;
     }
-    Array.from(files).forEach(async (file) => {
-      try {
-        const url = await compressImage(file);
-        addPhoto({ albumId, url, title: file.name.replace(/\.[^.]+$/, ""), caption: "", tags: [], date: new Date().toISOString().slice(0, 10) });
-      } catch {
-        toast.error(`Gagal memproses foto ${file.name}.`);
+    setUploading(true);
+    const fileArray = Array.from(files);
+    let successCount = 0;
+    try {
+      await Promise.all(
+        fileArray.map(async (file) => {
+          try {
+            const url = await compressImage(file);
+            addPhoto({
+              albumId,
+              url,
+              title: file.name.replace(/\.[^.]+$/, ""),
+              caption: "",
+              tags: [],
+              date: getTodayLocal(),
+            });
+            successCount++;
+          } catch {
+            toast.error(`Gagal memproses foto ${file.name}.`);
+          }
+        })
+      );
+      if (successCount > 0) {
+        toast.success(`${successCount} foto berhasil diunggah.`);
       }
-    });
-    toast.success(`${files.length} foto berhasil diunggah.`);
+    } finally {
+      setUploading(false);
+      if (fileRef.current) fileRef.current.value = "";
+    }
   };
 
   const saveEdit = (e: React.FormEvent) => {
@@ -81,7 +113,7 @@ export function PhotosPage() {
             <div className="p-3">
               <p className="text-sm truncate" style={{ fontWeight: 500 }}>{p.title}</p>
               <p className="text-xs text-muted-foreground">{formatDate(p.date)}</p>
-              {p.tags.length > 0 && <p className="text-xs text-[#0F4C81] truncate mt-1">#{p.tags.join(" #")}</p>}
+              {(p.tags ?? []).length > 0 && <p className="text-xs text-[#0F4C81] truncate mt-1">#{(p.tags ?? []).join(" #")}</p>}
             </div>
             <div className="absolute top-2 right-2 flex gap-1.5 opacity-0 group-hover:opacity-100 transition">
               <button title="Jadikan cover album" onClick={() => { updateAlbum(p.albumId, { cover: p.url }); toast.success("Foto dijadikan cover album."); }} className="grid place-items-center size-8 rounded-lg bg-white/90 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white transition"><Star className="size-4" /></button>
@@ -100,7 +132,7 @@ export function PhotosPage() {
             <Field label="Judul"><input value={editing.title} onChange={(e) => setEditing({ ...editing, title: e.target.value })} className={inputClass} /></Field>
             <Field label="Caption"><textarea value={editing.caption} onChange={(e) => setEditing({ ...editing, caption: e.target.value })} rows={2} className={inputClass} /></Field>
             <Field label="Keywords / Tags (pisahkan dengan koma)">
-              <input value={editing.tags.join(", ")} onChange={(e) => setEditing({ ...editing, tags: e.target.value.split(",").map((t) => t.trim()).filter(Boolean) })} className={inputClass} />
+              <input value={(editing.tags ?? []).join(", ")} onChange={(e) => setEditing({ ...editing, tags: e.target.value.split(",").map((t) => t.trim()).filter(Boolean) })} className={inputClass} />
             </Field>
             <Field label="Album">
               <select value={editing.albumId} onChange={(e) => setEditing({ ...editing, albumId: e.target.value })} className={inputClass}>
