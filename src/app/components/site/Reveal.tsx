@@ -27,22 +27,43 @@ export function SectionHeading({
   eyebrow,
   title,
   desc,
+  align = "center",
+  inverted = false,
 }: {
   eyebrow?: string;
   title: string;
   desc?: string;
+  align?: "center" | "left";
+  inverted?: boolean;
 }) {
+  const isLeft = align === "left";
   return (
-    <div className="max-w-2xl mx-auto text-center mb-12">
+    <div className={`mb-12 md:mb-16 ${isLeft ? "max-w-2xl text-left" : "max-w-2xl mx-auto text-center"}`}>
       {eyebrow && (
-        <span className="inline-block mb-3 px-4 py-1 rounded-full bg-[#0F4C81]/10 text-[#0F4C81] text-sm tracking-wide uppercase">
+        <p
+          className={`text-[11px] font-bold tracking-[0.2em] uppercase mb-3 font-mono ${
+            inverted ? "text-amber-300" : "text-[#0E335C]"
+          }`}
+        >
           {eyebrow}
-        </span>
+        </p>
       )}
-      <h2 className="text-3xl md:text-4xl text-[#0F4C81]" style={{ fontWeight: 700 }}>
+      <h2
+        className={`text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight font-heading leading-tight ${
+          inverted ? "text-white" : "text-slate-900"
+        }`}
+      >
         {title}
       </h2>
-      {desc && <p className="mt-4 text-muted-foreground leading-relaxed">{desc}</p>}
+      {desc && (
+        <p
+          className={`mt-3.5 text-sm sm:text-base leading-relaxed ${
+            inverted ? "text-slate-300" : "text-slate-600"
+          }`}
+        >
+          {desc}
+        </p>
+      )}
     </div>
   );
 }

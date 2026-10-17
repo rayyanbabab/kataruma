@@ -117,32 +117,43 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
             onClick={(e) => e.stopPropagation()}
           >
             {/* input */}
-            <div className="flex items-center gap-3 px-5 py-4 border-b border-black/5">
-              <Search className="size-5 text-[#0F4C81]" />
+            <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-100 bg-white">
+              <Search className="size-5 text-[#0E335C]" />
               <input
                 autoFocus
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Cari foto, video, atau album dokumentasi..."
-                className="flex-1 bg-transparent outline-none text-base"
+                placeholder="Cari foto, video, agenda, atau album dokumentasi..."
+                className="flex-1 bg-transparent outline-none text-sm sm:text-base text-slate-900 placeholder:text-slate-400"
               />
-              <button className="text-muted-foreground hover:text-[#D32F2F] transition" aria-label="Pencarian suara">
-                <Mic className="size-5" />
-              </button>
-              <button onClick={onClose} className="text-muted-foreground hover:text-foreground transition" aria-label="Tutup">
-                <X className="size-5" />
+              {query && (
+                <button
+                  onClick={() => setQuery("")}
+                  className="text-xs text-slate-400 hover:text-slate-600 px-1"
+                >
+                  Hapus
+                </button>
+              )}
+              <button
+                onClick={onClose}
+                className="grid place-items-center size-8 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition"
+                aria-label="Tutup"
+              >
+                <X className="size-4" />
               </button>
             </div>
 
             {/* filters + sort */}
-            <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3 border-b border-black/5 bg-[#F5F7FA]">
-              <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3 border-b border-slate-100 bg-slate-50">
+              <div className="flex flex-wrap gap-1.5">
                 {(["semua", "album", "foto", "video"] as Filter[]).map((f) => (
                   <button
                     key={f}
                     onClick={() => setFilter(f)}
-                    className={`px-3 py-1 rounded-full text-sm capitalize transition ${
-                      filter === f ? "bg-[#0F4C81] text-white" : "bg-white text-muted-foreground hover:bg-[#0F4C81]/10"
+                    className={`px-3 py-1 rounded-full text-xs font-semibold capitalize transition ${
+                      filter === f
+                        ? "bg-[#0E335C] text-white shadow-xs"
+                        : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-100"
                     }`}
                   >
                     {f}
@@ -152,24 +163,24 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value as Sort)}
-                className="text-sm bg-white rounded-lg px-3 py-1 border border-black/10 outline-none"
+                className="text-xs bg-white rounded-lg px-2.5 py-1 border border-slate-200 text-slate-700 outline-none shadow-xs font-medium"
               >
                 <option value="terbaru">Terbaru</option>
                 <option value="terlama">Terlama</option>
-                <option value="az">A - Z</option>
-                <option value="za">Z - A</option>
+                <option value="az">Nama A - Z</option>
+                <option value="za">Nama Z - A</option>
               </select>
             </div>
 
             <div className="max-h-[52vh] overflow-y-auto">
               {/* suggestions */}
               {suggestions.length > 0 && (
-                <div className="px-5 pt-3 flex flex-wrap gap-2">
+                <div className="px-5 pt-3.5 flex flex-wrap gap-2">
                   {suggestions.map((s) => (
                     <button
                       key={s}
                       onClick={() => runSearch(s)}
-                      className="text-sm px-3 py-1 rounded-full bg-[#D4AF37]/15 text-[#8a6d13] hover:bg-[#D4AF37]/30 transition"
+                      className="text-xs font-medium px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100 transition"
                     >
                       {s}
                     </button>
@@ -179,17 +190,21 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
 
               {/* empty state helpers */}
               {!query.trim() && (
-                <div className="p-5 grid sm:grid-cols-2 gap-6">
+                <div className="p-5 sm:p-6 grid sm:grid-cols-2 gap-6 bg-white">
                   <div>
-                    <p className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                      <Clock className="size-4" /> Pencarian Terakhir
+                    <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 font-heading">
+                      <Clock className="size-3.5" /> Pencarian Terakhir
                     </p>
                     {recent.length === 0 ? (
-                      <p className="text-sm text-muted-foreground/60">Belum ada.</p>
+                      <p className="text-xs text-slate-400">Belum ada riwayat pencarian.</p>
                     ) : (
                       <div className="flex flex-wrap gap-2">
                         {recent.map((r) => (
-                          <button key={r} onClick={() => setQuery(r)} className="text-sm px-3 py-1 rounded-full bg-[#F5F7FA] hover:bg-[#0F4C81]/10 transition">
+                          <button
+                            key={r}
+                            onClick={() => setQuery(r)}
+                            className="text-xs px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 hover:bg-slate-100 text-slate-700 transition"
+                          >
                             {r}
                           </button>
                         ))}
@@ -197,12 +212,16 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
                     )}
                   </div>
                   <div>
-                    <p className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                      <TrendingUp className="size-4" /> Pencarian Populer
+                    <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 font-heading">
+                      <TrendingUp className="size-3.5" /> Pencarian Populer
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {POPULAR.map((r) => (
-                        <button key={r} onClick={() => runSearch(r)} className="text-sm px-3 py-1 rounded-full bg-[#F5F7FA] hover:bg-[#0F4C81]/10 transition">
+                        <button
+                          key={r}
+                          onClick={() => runSearch(r)}
+                          className="text-xs px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 hover:bg-slate-100 text-slate-700 transition"
+                        >
                           {r}
                         </button>
                       ))}
@@ -213,7 +232,9 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
 
               {/* results */}
               {query.trim() && results.length === 0 && (
-                <div className="p-10 text-center text-muted-foreground">Dokumentasi yang Anda cari tidak ditemukan.</div>
+                <div className="p-12 text-center text-slate-400 text-sm">
+                  Dokumentasi dengan kata kunci &ldquo;{query}&rdquo; tidak ditemukan.
+                </div>
               )}
 
               {query.trim() &&
@@ -221,17 +242,22 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
                   <button
                     key={r.type + r.id}
                     onClick={() => go(r)}
-                    className="w-full flex items-center gap-4 px-5 py-3 hover:bg-[#F5F7FA] transition text-left"
+                    className="w-full flex items-center gap-4 px-5 py-3 hover:bg-slate-50 transition text-left border-b border-slate-100 last:border-b-0"
                   >
-                    <img src={r.thumb} alt={r.title} loading="lazy" className="size-14 rounded-lg object-cover shrink-0" />
+                    <img
+                      src={r.thumb}
+                      alt={r.title}
+                      loading="lazy"
+                      className="size-12 rounded-xl object-cover shrink-0 bg-slate-100 border border-slate-200"
+                    />
                     <div className="flex-1 min-w-0">
-                      <p className="truncate" style={{ fontWeight: 500 }}>{r.title}</p>
-                      <p className="text-sm text-muted-foreground truncate">{r.albumName}</p>
+                      <p className="text-sm font-bold font-heading text-slate-900 truncate">{r.title}</p>
+                      <p className="text-xs text-slate-500 truncate mt-0.5">{r.albumName}</p>
                     </div>
-                    <span className="flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-[#0F4C81]/10 text-[#0F4C81] capitalize">
+                    <span className="flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-100 text-[#0E335C] border border-slate-200 capitalize">
                       {typeIcon(r.type)} {r.type}
                     </span>
-                    <span className="text-xs text-muted-foreground hidden sm:block">{formatDate(r.date)}</span>
+                    <span className="text-xs text-slate-400 hidden sm:block font-medium">{formatDate(r.date)}</span>
                   </button>
                 ))}
             </div>

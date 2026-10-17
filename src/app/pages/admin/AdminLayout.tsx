@@ -52,12 +52,14 @@ export function AdminLayout() {
             end={n.end}
             onClick={() => setOpen(false)}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition ${
-                isActive ? "bg-[#D32F2F] text-white shadow-lg" : "text-white/70 hover:bg-white/10 hover:text-white"
+              `flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                isActive
+                  ? "bg-[#C92A2A] text-white shadow-md shadow-red-950/30"
+                  : "text-slate-300 hover:bg-white/10 hover:text-white"
               }`
             }
           >
-            <n.icon className="size-5" /> {n.label}
+            <n.icon className="size-4.5" /> {n.label}
           </NavLink>
         ))}
       </nav>
@@ -76,41 +78,41 @@ export function AdminLayout() {
   return (
     <div className="min-h-screen bg-[#F5F7FA] flex">
       {/* desktop sidebar */}
-      <aside className="hidden lg:block w-72 shrink-0 bg-gradient-to-b from-[#0F4C81] to-[#0b3660] fixed inset-y-0 left-0">{SidebarContent}</aside>
+      <aside className="hidden lg:block w-72 shrink-0 bg-[#071B33] border-r border-white/5 fixed inset-y-0 left-0 shadow-2xl z-30">{SidebarContent}</aside>
 
       {/* mobile sidebar */}
       {open && (
         <div className="lg:hidden fixed inset-0 z-50 flex">
-          <div className="w-72 bg-gradient-to-b from-[#0F4C81] to-[#0b3660]">{SidebarContent}</div>
-          <div className="flex-1 bg-black/50" onClick={() => setOpen(false)} />
+          <div className="w-72 bg-[#071B33] border-r border-white/10 shadow-2xl">{SidebarContent}</div>
+          <div className="flex-1 bg-black/60 backdrop-blur-sm" onClick={() => setOpen(false)} />
         </div>
       )}
 
       <div className="flex-1 lg:ml-72 min-w-0">
         {/* topbar */}
-        <header className="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-black/5 px-4 md:px-8 py-3 flex items-center justify-between">
-          <button className="lg:hidden p-2 text-[#0F4C81]" onClick={() => setOpen(true)} aria-label="Menu">
+        <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-4 md:px-8 py-3.5 flex items-center justify-between shadow-sm">
+          <button className="lg:hidden p-2 text-[#0E335C] hover:bg-slate-100 rounded-lg transition" onClick={() => setOpen(true)} aria-label="Menu">
             <Menu className="size-6" />
           </button>
           <div className="flex-1" />
           <div className="flex items-center gap-3">
             <div className="text-right hidden sm:block">
-              <p className="text-sm" style={{ fontWeight: 600 }}>{adminName}</p>
-              <p className="text-xs text-muted-foreground">Administrator</p>
+              <p className="text-sm text-slate-800" style={{ fontWeight: 600, fontFamily: "var(--font-heading)" }}>{adminName}</p>
+              <p className="text-xs text-slate-500 font-medium">Administrator RW 10</p>
             </div>
-            <span className="grid place-items-center size-10 rounded-full bg-gradient-to-br from-[#0F4C81] to-[#D32F2F] text-white" style={{ fontWeight: 700 }}>
+            <span className="grid place-items-center size-10 rounded-full bg-[#0E335C] text-white border-2 border-[#D97706]/40 shadow-sm" style={{ fontWeight: 700 }}>
               {initials}
             </span>
           </div>
         </header>
 
-        <main className="p-4 md:p-8">
+        <main className="p-4 md:p-8 bg-[#F8FAFC] min-h-[calc(100vh-65px)]">
           <Outlet />
         </main>
       </div>
 
-      <button className="lg:hidden fixed top-3 right-4 z-[60]" style={{ display: open ? "block" : "none" }} onClick={() => setOpen(false)} aria-label="Tutup">
-        <X className="size-6 text-white" />
+      <button className="lg:hidden fixed top-3 right-4 z-[60] size-10 rounded-full bg-white/10 backdrop-blur grid place-items-center" style={{ display: open ? "grid" : "none" }} onClick={() => setOpen(false)} aria-label="Tutup">
+        <X className="size-5 text-white" />
       </button>
     </div>
   );

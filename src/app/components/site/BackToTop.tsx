@@ -17,10 +17,10 @@ export function BackToTop() {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.5 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-6 right-6 z-40 grid place-items-center size-12 rounded-full bg-[#D32F2F] text-white shadow-2xl hover:bg-[#0F4C81] transition"
+          className="fixed bottom-6 right-6 z-40 grid place-items-center size-11 rounded-2xl bg-[#0E335C] text-white shadow-xl hover:bg-[#C92A2A] hover:scale-105 border border-white/20 transition-all duration-200"
           aria-label="Kembali ke atas"
         >
-          <ArrowUp className="size-6" />
+          <ArrowUp className="size-5" />
         </motion.button>
       )}
     </AnimatePresence>

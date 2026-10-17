@@ -29,7 +29,15 @@ function diff(target: Date) {
   };
 }
 
-export function Countdown({ date, compact }: { date: string; compact?: boolean }) {
+export function Countdown({
+  date,
+  compact,
+  theme = "light",
+}: {
+  date: string;
+  compact?: boolean;
+  theme?: "light" | "dark";
+}) {
   const target = parseTargetDate(date);
   const [t, setT] = useState(() => diff(target));
 
@@ -41,35 +49,55 @@ export function Countdown({ date, compact }: { date: string; compact?: boolean }
   }, [date]);
 
   if (t.isPast) {
-    return <span className="text-sm text-white/70" style={{ fontWeight: 600 }}>✓ Selesai</span>;
-  }
-
-  if (t.isToday || t.done) {
-    return <span className="text-sm text-[#D4AF37]" style={{ fontWeight: 600 }}>🎉 Hari ini!</span>;
-  }
-
-
-  const items = [
-    { v: t.days, l: "Hari" },
-    { v: t.hours, l: "Jam" },
-    { v: t.minutes, l: "Menit" },
-    { v: t.seconds, l: "Detik" },
-  ];
-
-  if (compact) {
     return (
-      <span className="text-sm text-[#0F4C81]" style={{ fontWeight: 600 }}>
-        {t.days}h : {String(t.hours).padStart(2, "0")}j : {String(t.minutes).padStart(2, "0")}m : {String(t.seconds).padStart(2, "0")}d
+      <span className="inline-flex items-center gap-1 text-xs font-medium text-slate-400">
+        Acara telah selesai
       </span>
     );
   }
 
+  if (t.isToday || t.done) {
+    return (
+      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold bg-[#C92A2A] text-white font-mono">
+        Hari ini: Kegiatan Berlangsung
+      </span>
+    );
+  }
+
+  const items = [
+    { v: t.days, l: "Hari" },
+    { v: t.hours, l: "Jam" },
+    { v: t.minutes, l: "Mnt" },
+    { v: t.seconds, l: "Dtk" },
+  ];
+
+  if (compact) {
+    return (
+      <span className="inline-flex items-center gap-1 text-xs font-medium text-[#0E335C] font-mono">
+        {t.days}h {String(t.hours).padStart(2, "0")}j {String(t.minutes).padStart(2, "0")}m {String(t.seconds).padStart(2, "0")}d
+      </span>
+    );
+  }
+
+  const isDark = theme === "dark";
+
   return (
-    <div className="flex gap-1.5">
+    <div className="grid grid-cols-4 gap-1.5">
       {items.map((i) => (
-        <div key={i.l} className="flex-1 rounded-lg bg-white/10 border border-white/20 backdrop-blur px-1.5 py-1.5 text-center">
-          <div className="text-base text-white" style={{ fontWeight: 800 }}>{String(i.v).padStart(2, "0")}</div>
-          <div className="text-[9px] text-white/70 uppercase tracking-wide">{i.l}</div>
+        <div
+          key={i.l}
+          className={`rounded-lg px-2 py-2 text-center transition-all ${
+            isDark
+              ? "bg-slate-900/80 border border-slate-800 text-white"
+              : "bg-white/10 border border-white/15 text-white"
+          }`}
+        >
+          <div className="text-base sm:text-lg font-bold font-mono tracking-tight leading-none">
+            {String(i.v).padStart(2, "0")}
+          </div>
+          <div className="text-[9px] uppercase tracking-wider font-semibold opacity-70 mt-1 font-mono">
+            {i.l}
+          </div>
         </div>
       ))}
     </div>

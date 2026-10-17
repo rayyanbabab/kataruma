@@ -40,7 +40,7 @@ export function LoginPage() {
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
       {/* left brand */}
-      <div className="relative hidden lg:flex flex-col justify-between p-12 text-white overflow-hidden">
+      <div className="relative hidden lg:flex flex-col justify-between p-12 text-white overflow-hidden bg-[#071B33]">
         <AnimatePresence mode="sync">
           <motion.img
             key={bgIdx}
@@ -50,29 +50,51 @@ export function LoginPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
-            className="absolute inset-0 size-full object-cover"
+            className="absolute inset-0 size-full object-cover opacity-25 mix-blend-overlay"
           />
         </AnimatePresence>
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0F4C81]/92 to-[#0b3660]/95" />
-        <div className="absolute -top-20 -right-20 size-80 rounded-full bg-[#D32F2F]/20 blur-3xl" />
-        <div className="absolute bottom-0 -left-20 size-80 rounded-full bg-[#D4AF37]/20 blur-3xl" />
-        <Link to="/" className="relative flex items-center gap-2 text-white/80 hover:text-white text-sm"><ArrowLeft className="size-4" /> Kembali ke Website</Link>
-        <div className="relative">
-          <span className="grid place-items-center size-16 rounded-2xl bg-white/10 mb-6"><ShieldCheck className="size-8 text-[#D4AF37]" /></span>
-          <h1 className="text-4xl leading-tight" style={{ fontWeight: 800 }}>Panel Admin<br />Kataruma RW 10</h1>
-          <p className="mt-4 text-white/70 max-w-md">Kelola album, foto, dan video dokumentasi HUT RI & Panggung Kemerdekaan dengan mudah dan aman.</p>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#071B33]/95 via-[#0E335C]/90 to-[#071B33]/98" />
+        <div className="absolute -top-20 -right-20 size-80 rounded-full bg-[#C92A2A]/15 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 -left-20 size-80 rounded-full bg-[#D97706]/15 blur-3xl pointer-events-none" />
+        
+        <Link to="/" className="relative flex items-center gap-2 text-white/80 hover:text-white text-sm font-medium transition">
+          <ArrowLeft className="size-4" /> Kembali ke Beranda
+        </Link>
+        
+        <div className="relative max-w-md">
+          <span className="grid place-items-center size-12 rounded-xl bg-white/10 border border-white/15 mb-6 backdrop-blur-sm">
+            <ShieldCheck className="size-6 text-white" />
+          </span>
+          <span className="inline-block px-2.5 py-0.5 rounded text-[11px] font-mono font-semibold bg-white/10 text-slate-200 border border-white/20 mb-3 uppercase tracking-wider">
+            Sistem Autentikasi Pengurus
+          </span>
+          <h1 className="text-3xl lg:text-4xl leading-tight" style={{ fontWeight: 800, fontFamily: "var(--font-heading)" }}>
+            Portal Admin Dokumentasi
+          </h1>
+          <p className="mt-3 text-slate-300 text-sm leading-relaxed">
+            Kelola arsip foto, video, agenda kegiatan warga, laporan transparansi, dan buku tamu Karang Taruna RW 10 secara terpusat.
+          </p>
         </div>
-        <p className="relative text-sm text-white/50">© 2026 Kataruma RW 10</p>
+        
+        <p className="relative text-xs text-white/40">
+          © 2026 Karang Taruna RW 10 Kel. Kalibata. Hak cipta dilindungi.
+        </p>
       </div>
 
       {/* right form */}
-      <div className="flex items-center justify-center p-6 bg-[#F5F7FA]">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md bg-white rounded-3xl shadow-xl p-8">
+      <div className="flex items-center justify-center p-6 bg-[#F8FAFC]">
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md bg-white rounded-2xl border border-slate-200/90 shadow-xl p-8 sm:p-10">
           <div className="lg:hidden mb-6">
-            <Link to="/" className="flex items-center gap-2 text-[#0F4C81] text-sm"><ArrowLeft className="size-4" /> Kembali ke Website</Link>
+            <Link to="/" className="flex items-center gap-2 text-[#0E335C] text-sm font-medium hover:underline">
+              <ArrowLeft className="size-4" /> Kembali ke Beranda
+            </Link>
           </div>
-          <h2 className="text-2xl text-[#0F4C81]" style={{ fontWeight: 700 }}>{forgot ? "Lupa Password" : "Login Admin"}</h2>
-          <p className="mt-1 text-sm text-muted-foreground">{forgot ? "Masukkan email untuk reset password." : "Masuk untuk mengelola dokumentasi."}</p>
+          <h2 className="text-2xl text-slate-900" style={{ fontWeight: 800, fontFamily: "var(--font-heading)" }}>
+            {forgot ? "Atur Ulang Sandi" : "Masuk Pengurus"}
+          </h2>
+          <p className="mt-1 text-sm text-slate-500">
+            {forgot ? "Masukkan email yang terdaftar untuk menerima instruksi reset sandi." : "Gunakan akun pengurus Anda untuk melanjutkan."}
+          </p>
 
           {forgot ? (
             <form
@@ -84,32 +106,86 @@ export function LoginPage() {
               className="mt-6 space-y-4"
             >
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-muted-foreground" />
-                <input required type="email" placeholder="Email admin" className="w-full pl-11 pr-4 py-3 rounded-xl bg-[#F5F7FA] border border-black/5 outline-none focus:border-[#0F4C81] transition" />
+                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4.5 text-slate-400" />
+                <input
+                  required
+                  type="email"
+                  placeholder="Email pengurus"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-sm outline-none focus:border-[#0E335C] focus:ring-2 focus:ring-[#0E335C]/10 transition"
+                />
               </div>
-              <button className="w-full py-3 rounded-xl bg-[#0F4C81] text-white hover:bg-[#D32F2F] transition" style={{ fontWeight: 600 }}>Kirim Tautan Reset</button>
-              <button type="button" onClick={() => setForgot(false)} className="w-full text-sm text-muted-foreground hover:text-[#0F4C81]">Kembali ke Login</button>
+              <button
+                className="w-full py-3 rounded-xl bg-[#0E335C] text-white hover:bg-[#071B33] transition shadow-md font-semibold text-sm"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                Kirim Tautan Reset
+              </button>
+              <button
+                type="button"
+                onClick={() => setForgot(false)}
+                className="w-full text-xs text-slate-500 hover:text-slate-800 font-medium transition"
+              >
+                Kembali ke Halaman Masuk
+              </button>
             </form>
           ) : (
             <form onSubmit={submit} className="mt-6 space-y-4">
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-muted-foreground" />
-                <input value={username} onChange={(e) => setUsername(e.target.value)} required placeholder="Username" className="w-full pl-11 pr-4 py-3 rounded-xl bg-[#F5F7FA] border border-black/5 outline-none focus:border-[#0F4C81] transition" />
+                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4.5 text-slate-400" />
+                <input
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                  placeholder="Username / ID Pengurus"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-sm outline-none focus:border-[#0E335C] focus:ring-2 focus:ring-[#0E335C]/10 transition"
+                />
               </div>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-muted-foreground" />
-                <input value={password} onChange={(e) => setPassword(e.target.value)} required type={show ? "text" : "password"} placeholder="Password" className="w-full pl-11 pr-11 py-3 rounded-xl bg-[#F5F7FA] border border-black/5 outline-none focus:border-[#0F4C81] transition" />
-                <button type="button" onClick={() => setShow((v) => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">{show ? <EyeOff className="size-5" /> : <Eye className="size-5" />}</button>
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4.5 text-slate-400" />
+                <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  type={show ? "text" : "password"}
+                  placeholder="Kata Sandi"
+                  className="w-full pl-11 pr-11 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-sm outline-none focus:border-[#0E335C] focus:ring-2 focus:ring-[#0E335C]/10 transition"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShow((v) => !v)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition"
+                >
+                  {show ? <EyeOff className="size-4.5" /> : <Eye className="size-4.5" />}
+                </button>
               </div>
               <div className="flex items-center justify-between text-sm">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="accent-[#0F4C81] size-4" />
-                  Ingat Saya
+                <label className="flex items-center gap-2 cursor-pointer text-slate-600 text-xs">
+                  <input
+                    type="checkbox"
+                    checked={remember}
+                    onChange={(e) => setRemember(e.target.checked)}
+                    className="accent-[#0E335C] size-4 rounded"
+                  />
+                  Ingat Sesi Saya
                 </label>
-                <button type="button" onClick={() => setForgot(true)} className="text-[#0F4C81] hover:text-[#D32F2F]">Lupa Password?</button>
+                <button
+                  type="button"
+                  onClick={() => setForgot(true)}
+                  className="text-xs text-[#0E335C] hover:text-[#C92A2A] font-medium transition"
+                >
+                  Lupa Sandi?
+                </button>
               </div>
-              <button disabled={busy} className="w-full py-3 rounded-xl bg-[#D32F2F] text-white hover:bg-[#b71c1c] transition shadow-lg disabled:opacity-60" style={{ fontWeight: 600 }}>{busy ? "Memproses…" : "Masuk"}</button>
-              <p className="text-xs text-center text-muted-foreground bg-[#F5F7FA] rounded-lg py-2">Login: username <b></b> / sandi <b></b></p>
+              <button
+                disabled={busy}
+                className="w-full py-3 rounded-xl bg-[#C92A2A] text-white hover:bg-[#a71d1d] transition shadow-md shadow-red-950/20 disabled:opacity-60 text-sm font-semibold"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                {busy ? "Memverifikasi..." : "Masuk ke Panel"}
+              </button>
+              <div className="text-xs text-center text-slate-500 bg-slate-100/70 border border-slate-200/60 rounded-xl py-2.5 px-3">
+                <span>Akses Pengurus: Masukkan kredensial akun terdaftar.</span>
+              </div>
             </form>
           )}
         </motion.div>
@@ -118,13 +194,13 @@ export function LoginPage() {
       {/* popup salah sandi */}
       <AnimatePresence>
         {error && (
-          <m.div className="fixed inset-0 z-[90] bg-black/50 flex items-center justify-center p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setError(false)}>
-            <m.div className="w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 text-center relative" initial={{ scale: 0.9, y: 10 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 10 }} onClick={(e) => e.stopPropagation()}>
-              <button onClick={() => setError(false)} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground"><X className="size-5" /></button>
-              <span className="grid place-items-center size-16 rounded-full bg-red-100 text-[#D32F2F] mx-auto mb-4"><AlertTriangle className="size-8" /></span>
-              <h3 className="text-lg" style={{ fontWeight: 700 }}>Sandi Salah!</h3>
-              <p className="mt-2 text-sm text-muted-foreground">Username atau password yang Anda masukkan tidak sesuai. Silakan coba lagi.</p>
-              <button onClick={() => { setError(false); setPassword(""); }} className="mt-6 w-full py-2.5 rounded-xl bg-[#D32F2F] text-white hover:bg-[#b71c1c] transition" style={{ fontWeight: 600 }}>Coba Lagi</button>
+          <m.div className="fixed inset-0 z-[90] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setError(false)}>
+            <m.div className="w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 text-center relative border border-slate-100" initial={{ scale: 0.95, y: 10 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 10 }} onClick={(e) => e.stopPropagation()}>
+              <button onClick={() => setError(false)} className="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><X className="size-5" /></button>
+              <span className="grid place-items-center size-12 rounded-xl bg-slate-100 text-[#C92A2A] mx-auto mb-4 border border-slate-200"><AlertTriangle className="size-6" /></span>
+              <h3 className="text-lg text-slate-900" style={{ fontWeight: 700, fontFamily: "var(--font-heading)" }}>Autentikasi Gagal</h3>
+              <p className="mt-2 text-sm text-slate-500">Username atau kata sandi yang Anda masukkan tidak sesuai. Periksa kembali dan coba lagi.</p>
+              <button onClick={() => { setError(false); setPassword(""); }} className="mt-6 w-full py-2.5 rounded-xl bg-[#C92A2A] text-white hover:bg-[#a71d1d] transition font-semibold text-sm" style={{ fontFamily: "var(--font-heading)" }}>Coba Lagi</button>
             </m.div>
           </m.div>
         )}

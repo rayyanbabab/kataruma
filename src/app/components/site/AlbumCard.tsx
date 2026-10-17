@@ -1,38 +1,69 @@
 import { Link } from "react-router";
-import { Calendar, Image as ImageIcon, Film, ArrowRight } from "lucide-react";
+import { Calendar, Camera, Film, ArrowRight } from "lucide-react";
 import { useStore, formatDate, countMedia, type Album } from "../../data/store";
 
 export function AlbumCard({ album }: { album: Album }) {
   const { photos, videos } = useStore();
   const c = countMedia(album.id, photos, videos);
+
   return (
-    <div className="group rounded-2xl overflow-hidden bg-white border border-black/5 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col">
-      <div className="relative aspect-[4/3] overflow-hidden">
+    <Link
+      to={`/album/${album.id}`}
+      className="group rounded-2xl overflow-hidden bg-white border border-slate-200/80 shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col"
+    >
+      {/* Cover Image Container */}
+      <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
         <img
           src={album.cover}
           alt={album.name}
           loading="lazy"
-          className="size-full object-cover group-hover:scale-110 transition-transform duration-700"
+          className="size-full object-cover group-hover:scale-103 transition-transform duration-500 ease-out"
         />
-        <span className="absolute top-3 left-3 flex items-center gap-1 px-3 py-1 rounded-full bg-white/90 text-xs text-[#0F4C81]">
-          <Calendar className="size-3.5" /> {formatDate(album.date)}
-        </span>
-      </div>
-      <div className="p-5 flex flex-col flex-1">
-        <h3 className="text-[#0F4C81] line-clamp-1" style={{ fontWeight: 600 }}>{album.name}</h3>
-        <p className="mt-2 text-sm text-muted-foreground line-clamp-2 flex-1">{album.description}</p>
-        <div className="mt-4 flex items-center gap-4 text-sm text-muted-foreground">
-          <span className="flex items-center gap-1"><ImageIcon className="size-4 text-[#D32F2F]" /> {c.photos} Foto</span>
-          <span className="flex items-center gap-1"><Film className="size-4 text-[#D32F2F]" /> {c.videos} Video</span>
+        {/* Subtle Vignette Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-slate-950/15" />
+
+        {/* Top Badges */}
+        <div className="absolute top-3 inset-x-3 flex items-center justify-between pointer-events-none">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-950/70 backdrop-blur-md text-[11px] font-medium text-white/90 border border-white/15 font-mono">
+            <Calendar className="size-3 text-amber-300" strokeWidth={1.75} /> {formatDate(album.date)}
+          </span>
+
+          <span className="inline-flex items-center gap-2 px-2 py-1 rounded-md bg-slate-950/70 backdrop-blur-md text-[11px] font-medium text-white/90 border border-white/15 font-mono">
+            {c.photos > 0 && (
+              <span className="flex items-center gap-1">
+                <Camera className="size-3 text-white/80" strokeWidth={1.75} /> {c.photos}
+              </span>
+            )}
+            {c.videos > 0 && (
+              <span className="flex items-center gap-1">
+                <Film className="size-3 text-amber-300" strokeWidth={1.75} /> {c.videos}
+              </span>
+            )}
+          </span>
         </div>
-        <Link
-          to={`/album/${album.id}`}
-          className="mt-5 inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-[#0F4C81] text-white text-sm hover:bg-[#D32F2F] transition"
-          style={{ fontWeight: 600 }}
-        >
-          Lihat Album <ArrowRight className="size-4" />
-        </Link>
       </div>
-    </div>
+
+      {/* Card Content */}
+      <div className="p-5 flex flex-col flex-1">
+        <h3 className="text-base sm:text-lg font-bold font-heading text-slate-900 group-hover:text-[#0E335C] transition-colors line-clamp-1">
+          {album.name}
+        </h3>
+
+        <p className="mt-2 text-xs sm:text-sm text-slate-600 line-clamp-2 leading-relaxed flex-1">
+          {album.description || "Dokumentasi kegiatan dan momen kebersamaan warga RW 10."}
+        </p>
+
+        {/* Footer info & CTA */}
+        <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+          <span className="font-medium text-slate-500 font-mono text-[11px]">
+            {c.photos + c.videos} Arsip Media
+          </span>
+          <span className="inline-flex items-center gap-1 font-semibold text-[#0E335C] group-hover:text-[#C92A2A] transition-colors">
+            <span>Buka Album</span>
+            <ArrowRight className="size-3.5 group-hover:translate-x-0.5 transition-transform" strokeWidth={1.75} />
+          </span>
+        </div>
+      </div>
+    </Link>
   );
 }
